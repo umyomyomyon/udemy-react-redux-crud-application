@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 
-class App extends Component {
+//クラスコンポーネント
+/*
+class App extends Component { 
   render() {
     return (
       <React.Fragment>
@@ -9,6 +11,22 @@ class App extends Component {
       </React.Fragment>
     );
   }
+}
+*/
+
+const App = () => {
+  return (
+    <div>
+      <Cat />
+      <Cat />
+      <Cat />
+      <Cat />
+      <Cat />
+    </div>
+  );
+}
+const Cat = () => {
+  return <div>cat</div>
 }
 
 export default App;
