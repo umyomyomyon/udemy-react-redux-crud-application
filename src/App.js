@@ -1,4 +1,5 @@
-import React, { Component } from 'react';
+import React from 'react';
+import PropTypes from 'prop-types';
 
 //クラスコンポーネント
 /*
@@ -36,9 +37,11 @@ const User = (props) => {
 return <div>I`m {props.name}. and {props.age} years old.</div>
 }
 
-//指定のpropsが与えられない場合に、コンポーネントにデフォルトで受け渡されるpropsの値を決められる
-User.defaultProps = {
-  age: 1
+//コンポーネントに渡されるpropの型チェックを行う
+User.porpTypes = {
+  name: PropTypes.string,
+  age: PropTypes.number.isRequired
+
 }
 
 export default App;
