@@ -1,18 +1,14 @@
 export const INCREMENT = 'INCREMENT'
 export const DECREMENT = 'DECREMENT'
 
-export const increment = () => ({
-    type: INCREMENT
-})
-/*       リファクタリング前
+
+//This function is Action Creator.
 export const increment = () => {
-    return {
-        type: 'INCREMENT'
-    }
+    console.log('increment() is called. send Action to Reducer.')
+    return {type: INCREMENT}    //This object is Action.
 }
-*/
 
 export const decrement = () => ({
-    type: INCREMENT
+    type: DECREMENT
 })
 

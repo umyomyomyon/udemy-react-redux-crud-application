@@ -9,9 +9,17 @@ import reducer from './reducers'
 import App from './components/App';
 import registerServiceWorker from './registerServiceWorker';
 
-const store = createStore(reducer)//アプリケーション内部で唯一のstore
-//アプリケーション内部の全てのstateはこのstoreに集約されている
+/*
+アプリケーション内部で唯一のstore
+アプリケーション内部の全てのstateはこのstoreに集約されている
+*/
+const store = createStore(reducer)
 
+//dispatchの度にstoreの中身を表示
+store.subscribe(() => {
+    console.log('Store is subscribed.')
+    console.log(store.getState())
+})
 
 ReactDOM.render(
     <Provider store={store}>
