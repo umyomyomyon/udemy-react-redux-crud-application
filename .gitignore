@@ -123,3 +123,8 @@ dist
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+
+mem
+eslint
+js-yaml
+webpack-dev-server
