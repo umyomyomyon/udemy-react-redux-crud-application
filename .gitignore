@@ -128,3 +128,5 @@ mem
 eslint
 js-yaml
 webpack-dev-server
+
+yarn.lock
