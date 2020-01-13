@@ -1,14 +1,29 @@
-export const INCREMENT = 'INCREMENT'
-export const DECREMENT = 'DECREMENT'
+import axios from 'axios'
 
+export const READ_EVENTS = 'READ_EVENTS'
 
-//This function is Action Creator.
-export const increment = () => {
-    console.log('increment() is called. send Action to Reducer.')
-    return {type: INCREMENT}    //This object is Action.
+const ROOT_URL = 'https://udemy-utils.herokuapp.com/api/v1'
+const QUERYSTRING = '?token=token123'
+
+export const readEvents = () => async dispatch => {
+    const response = await axios.get(`${ROOT_URL}/events${QUERYSTRING}`)
+    dispatch({ type: READ_EVENTS, response })
 }
+/*
+以下のコードと等価
+export const readEvents = () => {
+    return async dispatch => {
+      const response = await axios.get(`${ROOT_URL}/events${QUERYSTRING}`)
+      dispatch({ type: READ_EVENTS, response })
+    }
+  }
 
-export const decrement = () => ({
-    type: DECREMENT
-})
-
+更に以下のコードと等価
+export const readEvents = () => {
+    const func = async (dispatch) => {
+        const response = await axios.get(`${ROOT_URL}/events${QUERYSTRING}`)
+        dispatch({ type: READ_EVENTS, response })
+    }
+    return func
+}
+*/
