@@ -1,6 +1,7 @@
 import React, {Component} from 'react'
 import {connect} from "react-redux"
 import _ from 'lodash'
+import { Link } from 'react-router-dom'
 
 import { readEvents } from "../actions"
 
@@ -10,6 +11,7 @@ class EventsIndex extends Component {
   }
 
   renderEvents() {
+    //eventsをそれぞれ表示する
     return _.map(this.props.events, event => (
       <tr key={event.id}>
         <td>{event.id}</td>
@@ -21,6 +23,9 @@ class EventsIndex extends Component {
 
   render() {
     return(
+      //<thead> -> テーブルの定義
+      //<tbody> -> テーブルの内容
+      <React.Fragment>
         <table>
           <thead>
             <tr>
@@ -29,12 +34,15 @@ class EventsIndex extends Component {
               <th>Body</th>
             </tr>
           </thead>
-
+          
           <tbody>
             {this.renderEvents()}
           </tbody>
 
         </table>
+
+        <Link to="/events/new">New Events</Link>
+      </React.Fragment>
     )
   }
 }
