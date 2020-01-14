@@ -3,16 +3,16 @@ import {connect} from "react-redux"
 import { Field, reduxForm } from 'redux-form'
 import { Link } from 'react-router-dom'
 
-import { postEvent } from "../actions"
+import { getEvent, deleteEvent, putEvent } from "../actions"
 
-class EventsNew extends Component {
+class EventsShow extends Component {
   constructor(props) {
     super(props)
+    this.onDeleteClick = this.onDeleteClick.bind(this)
     this.onSubmit = this.onSubmit.bind(this)
   }
   renderField(field) {
-    //分割代入
-    const { input, label, type, meta: {touched, error } } = field
+    const { input, label, type, meta: { touched, error } } = field
     console.log(field)
     return (
       <div>
@@ -22,8 +22,14 @@ class EventsNew extends Component {
     )
   }
 
+  async onDeleteClick() {
+    const { id } = this.props.match.params
+    await this.props.deleteEvent(id)
+    this.props.history.push('/')
+  }
+
   async onSubmit(values) {
-    await this.props.postEvent(values)
+//    await this.props.postEvent(values)
     console.log(`values is`)
     console.log(values)
     this.props.history.push('/')
@@ -40,6 +46,7 @@ class EventsNew extends Component {
           <div>
             <input type="submit" value="Submit" disabled={pristine || submitting} />
             <Link to="/">Cancel</Link>
+            <Link to="/" onClick={this.onDeleteClick}>Delete</Link>
           </div>
         </div>
       </form>
@@ -47,25 +54,15 @@ class EventsNew extends Component {
   }
 }
 
-//何も入力されていないときに、入力してくださいのメッセージを表示したい
 const validate = values => {
   const errors = {}
-  //titleもしくはbodyになにもない場合は、errorsオブジェクトにエラーメッセージを格納して返す
   if (!values.title) errors.title = "Enter a title, please"
   if (!values.body) errors.body = "Enter a body, please"
 
   return errors
 }
-const mapDisPatchToProps = ({ postEvent })
+const mapDisPatchToProps = ({ deleteEvent })
 
 export default connect(null, mapDisPatchToProps)(
-  //{validate: validate} -> {validate}のシンタックスシュガーを用いている
-  //{validate: validateFunc}でも大丈夫
-  //reduxForm()()は１つ目の()の引数としてオブジェクトを受け取り,
-  //２つ目の(), つまり返ってくる関数の引数としてcomponentを受け取る
-  //reduxForm(Object)(Component)
-  reduxForm({ validate, form: 'eventNewForm' })(EventsNew)  
-  //connectの2つ目の()にはcomponentを渡す必要があるが
-  //ここではHigher Order ComponentであるreduxFormを渡している
-  //つまり, reduxFormで機能が拡張されたEventsNewが渡されている
+  reduxForm({ validate, form: 'eventShowForm' })(EventsShow)  
 )
